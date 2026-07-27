@@ -1,0 +1,277 @@
+/* =============================================================================
+   Grid — 에디터 웹뷰 스타일 전체
+     출처: media/webview.css 1290-1557행 (파일 끝까지) 원문 그대로
+     포함: 우클릭 컨텍스트 메뉴(.rve-ctxmenu) / Data Binding 팝업(.rve-db-*) /
+           Grid Properties(.rve-gp-*) / 병합설정(.rve-ms-*) / 컬럼 숨기기(.rve-hc-*)
+     참고: --rve-border, --rve-primary, --t-blue 등 CSS 변수는 webview.css 상단의
+           테마 변수입니다. 이식 시 없으면 fallback 값(괄호 안)이 적용됩니다.
+   ============================================================================= */
+
+/* ===== 우클릭 컨텍스트 메뉴 ===== */
+.rve-ctxmenu {
+  position: fixed;
+  z-index: 9999;
+  min-width: 150px;
+  padding: 4px;
+  background: var(--t-card);
+  border: 1px solid var(--t-divider, #e5e8eb);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+}
+.rve-ctx-item {
+  padding: 7px 12px;
+  border-radius: 6px;
+  color: var(--t-text);
+  cursor: pointer;
+}
+.rve-ctx-item:hover { background: var(--t-blue); color: #fff; }
+
+/* ===== Data Binding 팝업 (다크 다이얼로그) ===== */
+.rve-db-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+.rve-db-box {
+  width: 940px;
+  max-width: 96vw;
+  height: 620px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: #3a3d42;
+  color: #e6e8ea;
+  border: 1px solid #222428;
+  border-radius: 8px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-size: 12.5px;
+}
+.rve-db-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #2b2e33;
+  border-bottom: 1px solid #222428;
+  font-weight: 700;
+}
+.rve-db-x {
+  border: none;
+  background: transparent;
+  color: #b8bcc2;
+  font-size: 13px;
+  cursor: pointer;
+}
+.rve-db-x:hover { color: #fff; }
+.rve-db-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1.5fr;
+  gap: 10px;
+  padding: 10px;
+  min-height: 0;
+}
+.rve-db-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #2f3237;
+  border: 1px solid #222428;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.rve-db-ptitle {
+  padding: 8px 10px;
+  text-align: center;
+  font-weight: 700;
+  background: #33363b;
+  border-bottom: 1px solid #222428;
+}
+.rve-db-search {
+  margin: 8px;
+  padding: 6px 8px;
+  background: #232529;
+  border: 1px solid #3a3d42;
+  border-radius: 6px;
+  color: #e6e8ea;
+  font: inherit;
+}
+.rve-db-search:focus { outline: none; border-color: #4593fc; }
+.rve-db-list {
+  flex: 1;
+  overflow: auto;
+  padding: 4px 8px 8px;
+}
+.rve-db-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.rve-db-item:hover { background: #3a3d42; }
+.rve-db-item.on { background: #1b64da; }
+.rve-db-jname { font-weight: 700; }
+.rve-db-jmeta { font-size: 11px; color: #9aa0a8; }
+.rve-db-item.on .rve-db-jmeta { color: #cfe0ff; }
+.rve-db-key {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-family: var(--vscode-editor-font-family, monospace);
+}
+.rve-db-key:hover { background: #3a3d42; }
+.rve-db-key.used { opacity: 0.45; }
+.rve-db-add, .rve-db-rm {
+  border: none;
+  background: #4593fc;
+  color: #fff;
+  border-radius: 5px;
+  width: 22px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+}
+.rve-db-add:disabled { background: #55585e; cursor: default; }
+.rve-db-midbtns { padding: 8px; border-top: 1px solid #222428; }
+.rve-db-btn {
+  padding: 6px 12px;
+  border: 1px solid #4a4d53;
+  background: #33363b;
+  color: #e6e8ea;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+.rve-db-btn:hover:not(:disabled) { background: #3f4349; }
+.rve-db-btn:disabled { opacity: 0.5; cursor: default; }
+.rve-db-apply { background: #1b64da; border-color: #1b64da; color: #fff; }
+.rve-db-empty { padding: 16px 8px; color: #9aa0a8; text-align: center; font-size: 11.5px; }
+
+/* 매핑표 */
+.rve-db-table { flex: 1; overflow: auto; }
+.rve-db-tr {
+  display: grid;
+  grid-template-columns: 44px 1fr 1fr 92px 24px;
+  border-bottom: 1px solid #2b2e33;
+}
+.rve-db-thead { background: #33363b; font-weight: 700; position: sticky; top: 0; }
+.rve-db-th { padding: 7px 6px; text-align: center; border-right: 1px solid #2b2e33; }
+.rve-db-td { padding: 5px 6px; border-right: 1px solid #2b2e33; display: flex; align-items: center; }
+.rve-db-colid { justify-content: center; color: #9aa0a8; }
+.rve-db-cell { background: #232529; color: #e6e8ea; border: none; font: inherit; width: 100%; }
+.rve-db-cell:focus { outline: none; background: #1b1d21; }
+.rve-db-fieldcell { font-family: var(--vscode-editor-font-family, monospace); color: #b8bcc2; }
+.rve-db-typesel { background: #232529; color: #e6e8ea; border: none; font: inherit; }
+.rve-db-rm { background: #55585e; }
+.rve-db-rm:hover:not(:disabled) { background: #e5484d; }
+.rve-db-rm:disabled { opacity: 0.4; }
+/* 그리드 열 → JSON 필드 매핑표 (4열) */
+.rve-db-maptr { grid-template-columns: 1.2fr 1.3fr 92px 26px; }
+.rve-db-gcol { flex-direction: column; align-items: flex-start; gap: 1px; justify-content: center; }
+.rve-db-gtitle { color: #e6e8ea; font-weight: 600; }
+.rve-db-gkey { color: #8a9098; font-size: 10px; font-family: var(--vscode-editor-font-family, monospace); }
+.rve-db-fieldsel { width: 100%; }
+.rve-db-fieldsel.empty { color: #8a9098; box-shadow: inset 0 0 0 1px #4a3b2b; }
+.rve-db-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #2b2e33;
+  border-top: 1px solid #222428;
+}
+
+/* ===== Grid Properties 팝업 ===== */
+/* 고정 폭 — 컬럼을 추가해도 팝업이 커지지 않게(내용은 내부에서 맞춤/스크롤) */
+.rve-gp-box { width: 760px; max-width: 96vw; height: auto; max-height: 88vh; }
+.rve-gp-body { padding: 12px; overflow: auto; }
+.rve-gp-level { display: flex; gap: 16px; margin-bottom: 12px; }
+.rve-gp-field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.rve-gp-field > span { color: #b8bcc2; font-weight: 700; }
+.rve-gp-field select, .rve-gp-field input {
+  background: #232529; border: 1px solid #3a3d42; border-radius: 6px;
+  color: #e6e8ea; font: inherit; padding: 6px 8px; min-width: 120px;
+}
+.rve-gp-mergecell { display: flex; align-items: center; justify-content: center; }
+.rve-gp-ctrl { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #c8ccd2; cursor: pointer; }
+.rve-gp-ctrlwrap { display: flex; align-items: center; gap: 14px; }
+.rve-gp-btnwrap { display: flex; gap: 8px; }
+.rve-gp-addhdr, .rve-gp-mergebtn, .rve-gp-hidebtn { white-space: nowrap; }
+/* 컬럼 숨기기 팝업 */
+.rve-hc-toggles { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 14px; }
+.rve-hc-chip { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 8px 6px;
+  border: 1px solid var(--rve-border, #3a3f47); border-radius: 6px; background: #2b3038; color: #e6e8ea;
+  cursor: pointer; overflow: hidden; }
+.rve-hc-chip:hover { background: #343b45; }
+.rve-hc-chip .rve-hc-t { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.rve-hc-chip .rve-hc-k { font-size: 9px; color: #8a9098; font-family: var(--vscode-editor-font-family, monospace); }
+.rve-hc-chip.hidden { background: rgba(229,72,77,.12); border-color: #a34; opacity: .7; }
+.rve-hc-chip.hidden .rve-hc-t { text-decoration: line-through; color: #e06c6c; }
+/* Grid Properties 섹션 */
+.rve-gp-section { margin: 0 0 16px; }
+.rve-gp-sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 0 0 7px; margin: 0 0 9px; border-bottom: 1px solid var(--rve-border, #3a3f47); }
+.rve-gp-sectitle { font-size: 12px; font-weight: 700; letter-spacing: .3px; color: #e6e8ea; }
+.rve-gp-shint { margin: 8px 0 0; font-size: 11px; color: #8a9098; line-height: 1.5; }
+/* 헤더 구조 미리보기 (읽기 전용) */
+.rve-gp-pv { border: 1px solid var(--rve-border, #3a3f47); border-radius: 6px; overflow-x: auto; background: #202329; }
+.rve-gp-pvempty { padding: 10px; color: #8a9098; font-size: 12px; text-align: center; }
+/* 미리보기 편집 셀(헤더명 입력) — 2D 격자 아이템 */
+.rve-gp-pvcell { min-width: 0; padding: 5px 6px; font-size: 11.5px; text-align: center;
+  border-right: 1px solid var(--rve-border, #3a3f47); border-bottom: 1px solid var(--rve-border, #3a3f47);
+  background: #2b3038; color: #dfe2e6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+input.rve-gp-pvedit { border: none; outline: none; font: inherit; font-weight: 600; }
+input.rve-gp-pvedit::placeholder { color: #565b63; font-weight: 400; }
+input.rve-gp-pvedit:focus { background: #1b1d21; box-shadow: inset 0 0 0 1px var(--rve-primary, #3182f6); }
+.rve-gp-pvcell.rve-gp-pvbase { background: #30353d; font-weight: 700; }
+
+/* 병합 설정 팝업 (실제 그리드 모양 WYSIWYG) */
+.rve-ms-box { width: 820px; max-width: 96vw; height: auto; max-height: 88vh; }
+.rve-ms-body { display: block; padding: 14px; overflow: auto; }
+.rve-ms-scroll { overflow-x: auto; border: 1px solid var(--rve-border, #3a3f47); border-radius: 6px; }
+.rve-ms-wysiwyg { width: max-content; }
+.rve-ms-hgrid { border-bottom: 2px solid var(--rve-border, #3a3f47); }
+.rve-ms-drow.alt { background: rgba(255,255,255,0.02); }
+.rve-ms-cell {
+  border-right: 1px solid var(--rve-border, #3a3f47); border-bottom: 1px solid var(--rve-border, #3a3f47);
+  padding: 4px 8px; font-size: 12px; text-align: center; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.rve-ms-hgrid .rve-ms-hcell { background: #2b3038; font-weight: 600; color: #e6e8ea; }
+.rve-ms-dgrid .rve-ms-datacell { color: #d3d7dc; }
+.rve-ms-grid { border: 1px solid var(--rve-border, #3a3f47); border-radius: 6px; overflow: hidden; }
+.rve-ms-row { display: flex; align-items: stretch; }
+.rve-ms-row + .rve-ms-row { border-top: 1px solid var(--rve-border, #3a3f47); }
+.rve-ms-gutter { flex: 0 0 34px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #8a9098; background: #24282f; border: none; border-right: 1px solid var(--rve-border, #3a3f47); }
+.rve-ms-lvdel { cursor: pointer; color: #e06c6c; }
+.rve-ms-lvdel:hover { background: #3a2b2b; }
+.rve-ms-cell { flex: 1 1 0; min-width: 0; padding: 7px 8px; font-size: 12px; text-align: center;
+  border: none; border-left: 1px solid var(--rve-border, #3a3f47); background: transparent; color: inherit;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+input.rve-ms-cell { outline: none; }
+input.rve-ms-cell:focus { box-shadow: inset 0 0 0 1px var(--rve-primary, #3182f6); }
+.rve-ms-hrow { background: #2b3038; }
+.rve-ms-baserow { background: #30353d; font-weight: 600; }
+.rve-ms-selcell { cursor: pointer; user-select: none; }
+.rve-ms-fixedcell { cursor: default; user-select: none; }
+.rve-ms-cell.empty { color: #565b63; }
+.rve-ms-datacell { color: #c8ccd2; }
+.rve-ms-cell.sel { background: rgba(49, 130, 246, 0.30); }
+.rve-ms-selinfo { margin-right: auto; font-size: 11px; color: #9aa0a8; align-self: center; }
+.rve-gp-lvdel { background: none; border: none; color: #e06c6c; cursor: pointer; font-size: 10px; padding: 0 2px; line-height: 1; }
+.rve-db-thead .rve-db-th { display: flex; align-items: center; gap: 2px; }
+/* 컬럼 10개 크기로 고정 — 그 이상이면 표가 세로 스크롤(헤더는 sticky로 고정) */
+.rve-gp-table { border: 1px solid #222428; border-radius: 6px; max-height: 336px; overflow-y: auto; }

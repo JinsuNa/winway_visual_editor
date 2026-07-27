@@ -1,0 +1,113 @@
+/*
+ * 디자인 토큰 — astryx 룩을 CSS 변수로. 라이트/다크 모두 대응.
+ * 컴포넌트는 이 변수만 참조하므로, 여기만 바꾸면 전체 테마가 바뀐다.
+ */
+:root {
+  /* 색상 */
+  --rve-bg: #ffffff;
+  --rve-surface: #ffffff;
+  --rve-fg: #191f28;
+  --rve-muted: #8b95a1;
+  --rve-border: #e5e8eb;
+  --rve-fill: #f2f4f6;
+  --rve-fill-hover: #e8ebed;
+
+  --rve-primary: #3182f6;
+  --rve-primary-hover: #2b74dd;
+  --rve-primary-active: #1b64da;
+  --rve-primary-fg: #ffffff;
+
+  --rve-danger: #f04452;
+  --rve-danger-fg: #ffffff;
+  --rve-success: #15803d;
+  --rve-focus-ring: rgba(49, 130, 246, 0.35);
+
+  /* 간격 스케일 (4px 기반) */
+  --rve-space-1: 4px;
+  --rve-space-2: 8px;
+  --rve-space-3: 12px;
+  --rve-space-4: 16px;
+  --rve-space-5: 24px;
+  --rve-space-6: 32px;
+
+  /* 라운드 */
+  --rve-radius-sm: 6px;
+  --rve-radius-md: 10px;
+  --rve-radius-lg: 14px;
+  --rve-radius-full: 9999px;
+
+  /* 타이포 */
+  --rve-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --rve-font-size-sm: 13px;
+  --rve-font-size-md: 15px;
+  --rve-font-size-lg: 17px;
+  --rve-font-weight: 400;
+  --rve-font-weight-bold: 600;
+
+  /* 컨트롤 공통 */
+  --rve-control-h-sm: 32px;
+  --rve-control-h-md: 40px;
+  --rve-control-h-lg: 48px;
+  --rve-duration: 150ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rve-bg: #17171c;
+    --rve-surface: #1e1e24;
+    --rve-fg: #e9ecef;
+    --rve-muted: #8b95a1;
+    --rve-border: #33363d;
+    --rve-fill: #26272e;
+    --rve-fill-hover: #30323a;
+
+    --rve-primary: #4593fc;
+    --rve-primary-hover: #5a9ffc;
+    --rve-primary-active: #6faafd;
+    --rve-primary-fg: #ffffff;
+
+    --rve-danger: #ff6b78;
+    --rve-focus-ring: rgba(69, 147, 252, 0.4);
+  }
+}
+
+/* 명시적 테마 강제용 (data-rve-theme) — 미디어쿼리(prefers-color-scheme)보다 우선.
+   양쪽 모두 값 전체를 명시해야 OS가 반대 테마여도 확실히 강제된다. */
+[data-rve-theme="light"] {
+  color-scheme: light;
+  --rve-bg: #ffffff;
+  --rve-surface: #ffffff;
+  --rve-fg: #191f28;
+  --rve-muted: #8b95a1;
+  --rve-border: #e5e8eb;
+  --rve-fill: #f2f4f6;
+  --rve-fill-hover: #e8ebed;
+  --rve-primary: #3182f6;
+  --rve-primary-hover: #2b74dd;
+  --rve-primary-active: #1b64da;
+  --rve-danger: #f04452;
+  --rve-focus-ring: rgba(49, 130, 246, 0.35);
+}
+[data-rve-theme="dark"] {
+  color-scheme: dark;
+  --rve-bg: #17171c;
+  --rve-surface: #1e1e24;
+  --rve-fg: #e9ecef;
+  --rve-muted: #8b95a1;
+  --rve-border: #33363d;
+  --rve-fill: #26272e;
+  --rve-fill-hover: #30323a;
+  --rve-primary: #4593fc;
+  --rve-primary-hover: #5a9ffc;
+  --rve-primary-active: #6faafd;
+  --rve-danger: #ff6b78;
+  --rve-focus-ring: rgba(69, 147, 252, 0.4);
+}
+
+/* 테마가 적용된 루트(예: Theme 컴포넌트가 <html>에 data-rve-theme 설정)는
+   배경/글자색도 테마색으로 → 화면 전체가 다크/화이트로 바뀐다. */
+[data-rve-theme] {
+  background-color: var(--rve-bg);
+  color: var(--rve-fg);
+}

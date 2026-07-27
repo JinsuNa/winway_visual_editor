@@ -1,0 +1,26 @@
+/* winGrid의 --wg-* 토큰을 우리 --rve-* 테마에 매핑 → 캔버스/Theme 토글에 자동 연동.
+   winGrid의 .wg-root가 자체 --wg-* 라이트값을 정의하므로, 반드시 .wg-root를 직접 타겟해
+   더 높은 명시도로 덮어써야 다크 테마가 적용된다. */
+.grid {
+  display: block;
+  align-self: flex-start;
+  height: auto;
+  color: var(--rve-fg);
+  font-family: var(--rve-font-family);
+}
+
+.grid :global(.wg-root) {
+  --wg-font: var(--rve-font-family);
+  --wg-font-size: var(--rve-font-size-sm);
+  --wg-border: var(--rve-border);
+  --wg-cell-fg: var(--rve-fg);
+  --wg-accent: var(--rve-primary);
+  --wg-header-bg: var(--rve-fill);
+  --wg-header-hover-bg: var(--rve-fill-hover);
+  --wg-header-fg: var(--rve-fg);
+  --wg-footer-bg: var(--rve-fill);
+  --wg-row-bg: var(--rve-surface);
+  --wg-row-alt-bg: var(--rve-bg);
+  --wg-row-hover-bg: var(--rve-fill-hover);
+  --wg-row-selected-bg: rgba(49, 130, 246, 0.14);
+}

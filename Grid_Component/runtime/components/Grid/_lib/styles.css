@@ -1,0 +1,244 @@
+/* winGrid 기본 테마 — CSS 변수로 커스터마이징 */
+.wg-root {
+  --wg-border: #d6dbe3;
+  --wg-header-bg: #eff2f7;
+  --wg-header-hover-bg: #e4e9f2;
+  --wg-header-fg: #2c3543;
+  --wg-row-bg: #ffffff;
+  --wg-row-alt-bg: #f8fafc;
+  --wg-row-hover-bg: #eef4ff;
+  --wg-row-selected-bg: #dcebff;
+  --wg-footer-bg: #eff2f7;
+  --wg-cell-fg: #1f2733;
+  --wg-accent: #2f6fed;
+  --wg-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+  --wg-font-size: 13px;
+
+  position: relative;
+  border: 1px solid var(--wg-border);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: var(--wg-font);
+  font-size: var(--wg-font-size);
+  color: var(--wg-cell-fg);
+  background: var(--wg-row-bg);
+  box-sizing: border-box;
+}
+.wg-root *,
+.wg-root *::before,
+.wg-root *::after {
+  box-sizing: border-box;
+}
+
+.wg-scroll {
+  height: 100%;
+  overflow: auto;
+}
+
+/* ── 헤더 ─────────────────────────────────── */
+.wg-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--wg-header-bg);
+}
+.wg-header-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  font-weight: 600;
+  color: var(--wg-header-fg);
+  border-right: 1px solid var(--wg-border);
+  border-bottom: 1px solid var(--wg-border);
+  background: var(--wg-header-bg);
+  user-select: none;
+  overflow: hidden;
+}
+.wg-header-cell.wg-sortable {
+  cursor: pointer;
+}
+.wg-header-cell.wg-sortable:hover {
+  background: var(--wg-header-hover-bg, #e4e9f2);
+}
+.wg-header-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.wg-sort-indicator {
+  flex: none;
+  font-size: 10px;
+  color: var(--wg-accent);
+}
+.wg-sort-indicator sub {
+  font-size: 9px;
+  margin-left: 1px;
+}
+.wg-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 7px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 1;
+}
+.wg-resize-handle:hover {
+  background: var(--wg-accent);
+  opacity: 0.4;
+}
+body.wg-resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* ── 바디 ─────────────────────────────────── */
+.wg-canvas {
+  position: relative;
+}
+.wg-row {
+  position: absolute;
+  left: 0;
+  background: var(--wg-row-bg);
+}
+.wg-row-alt {
+  background: var(--wg-row-alt-bg);
+}
+.wg-row:hover {
+  background: var(--wg-row-hover-bg);
+}
+.wg-row-selected,
+.wg-row-selected:hover {
+  background: var(--wg-row-selected-bg);
+}
+.wg-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border-right: 1px solid var(--wg-border);
+  border-bottom: 1px solid var(--wg-border);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.wg-selection-cell {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.wg-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b93a1;
+  padding: 24px;
+}
+
+/* ── 푸터 ─────────────────────────────────── */
+.wg-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  background: var(--wg-footer-bg);
+  border-top: 1px solid var(--wg-border);
+}
+.wg-footer-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-weight: 600;
+  border-right: 1px solid var(--wg-border);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ── 정렬 유틸 (헤더/바디/푸터 공용) ─────────── */
+.wg-align-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+.wg-align-center {
+  justify-content: center;
+  text-align: center;
+}
+.wg-align-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* ── 입력 요소 ─────────────────────────────── */
+.wg-checkbox {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--wg-accent);
+  cursor: pointer;
+}
+.wg-checkbox:disabled {
+  cursor: default;
+}
+.wg-select {
+  width: 100%;
+  height: 26px;
+  border: 1px solid var(--wg-border);
+  border-radius: 4px;
+  background: #fff;
+  font: inherit;
+  padding: 0 4px;
+}
+.wg-radio-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.wg-radio-item {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  cursor: pointer;
+}
+.wg-radio-item input {
+  accent-color: var(--wg-accent);
+  cursor: pointer;
+}
+
+/* ── 로딩 ─────────────────────────────────── */
+.wg-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 4;
+}
+.wg-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--wg-border);
+  border-top-color: var(--wg-accent);
+  border-radius: 50%;
+  animation: wg-spin 0.8s linear infinite;
+}
+@keyframes wg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 셀 버튼 (type: 'button') */
+.wg-cell-button {
+  padding: 3px 10px;
+  border: 1px solid var(--wg-accent);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--wg-accent);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.wg-cell-button:hover:not(:disabled) { background: var(--wg-accent); color: #fff; }
+.wg-cell-button:disabled { opacity: 0.5; cursor: default; }
